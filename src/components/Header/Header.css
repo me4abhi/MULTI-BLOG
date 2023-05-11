@@ -1,0 +1,26 @@
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: teal;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
+
+h1 {
+  margin: 0;
+  color: white;
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  color: lightcyan;
+}
+
+a:hover {
+  color: white;
+  text-decoration: overline;
+}
