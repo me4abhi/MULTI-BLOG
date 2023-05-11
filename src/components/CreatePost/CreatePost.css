@@ -1,0 +1,28 @@
+#create-post {
+    margin: 2rem auto;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+#create-new-post {
+    text-transform: uppercase;
+    margin: auto;
+    color: teal;
+}
+
+#create-post-title, #create-post-content {
+    padding: 1rem;
+    font-size: 1.4rem;
+}
+
+#create-post-btn {
+    width: 25%;
+    background-color: teal;
+    color: white;
+    border: none;
+    margin: auto;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}

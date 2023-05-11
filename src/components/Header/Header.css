@@ -1,9 +1,10 @@
 #header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:end;
+  gap: 1rem;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 5rem;
   background-color: teal;
   text-transform: uppercase;
   letter-spacing: 0.02rem;
@@ -11,6 +12,7 @@
 
 #header-title {
   margin: 0;
+  margin-right: auto;
   color: white;
   cursor: default;
 }

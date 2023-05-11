@@ -16,14 +16,15 @@
 }
 
 label {
-  width: 96%;
+  width: 95%;
   text-align: left;
   text-transform: capitalize;
 }
 
 #phone-number,
-#otp-code {
+#otp-code, #display-name {
   border: 2px solid black;
+  margin-top: 0.3rem;
   margin-bottom: 1.4rem;
   width: 90%;
   padding: 0.7rem 0.5rem;
@@ -45,9 +46,4 @@ label {
 
 input:focus {
   background-color: rgb(252, 252, 252);
-}
-
-button:hover {
-  cursor: pointer;
-  font-weight: bold;
 }

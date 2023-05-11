@@ -1,10 +1,15 @@
 import { useState } from "react";
 import "./Login.css";
 import { auth } from "../../services/firebaseConfig";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  updateProfile,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [OTP, setOTP] = useState("");
   const [verificationId, setVerificationId] = useState("");
@@ -39,8 +44,8 @@ function Login() {
 
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(auth, phoneNumberWithCode, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
+        .then((response) => {
+          window.confirmationResult = response;
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -53,12 +58,26 @@ function Login() {
     setOTP(otp);
 
     if (otp.length === 6) {
-      let confirmationResult = window.confirmationResult;
-      confirmationResult
+      window.confirmationResult
         .confirm(otp)
-        .then((result) => {
-          const user = result.user;
-          console.log(user);
+        .then((credentials) => {
+          const { displayName } = credentials.user;
+          console.log(displayName, credentials.user);
+          if (displayName === null) {
+            const currentUser = auth.currentUser;
+            updateProfile(currentUser, {
+              displayName: userName,
+            })
+              .then(() => {
+                console.log("Profile Updated");
+                console.log(credentials.user);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+
+          // redirect to "./blogs" page
           navigate("/blogs");
         })
         .catch((error) => {
@@ -72,6 +91,16 @@ function Login() {
       <h2 id="login-title">Login</h2>
 
       {/* Phone Number - input & submit */}
+      <label>Display Name</label>
+      <input
+        type="text"
+        id="display-name"
+        name="display-name"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        required
+        minLength={3}
+      />
       <label>Phone number</label>
       <input
         type="tel"
