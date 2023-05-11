@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Login.css";
 import { auth } from "../../services/firebaseConfig";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -10,19 +11,22 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [expandForm, setExpandForm] = useState(false);
 
-  const COUNTRY_CODE = "+91";
+  const countryCode = "+91";
+  const navigate = useNavigate();
 
   const generateRecaptcha = () => {
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        // size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved successfully | allow signInWithPhoneNumber()
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // reCAPTCHA solved successfully | allow signInWithPhoneNumber()
+          },
         },
-      },
-      auth
-    );
+        auth
+      );
+    }
   };
 
   // In this function, call 'signInWithPhoneNumber()' method on the 'auth' object with user's phone number as a parameter
@@ -50,19 +54,23 @@ function Login() {
 
     if (otp.length === 6) {
       let confirmationResult = window.confirmationResult;
-      confirmationResult.confirm(otp).then((result) => {
-        const user = result.user;
-      }).catch((error) => {
-
-      })
-      
+      confirmationResult
+        .confirm(otp)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate("/blogs");
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+        });
     }
   };
 
   return (
     <form id="login-form" onSubmit={requestOTP}>
-      <h2>Login</h2>
-      
+      <h2 id="login-title">Login</h2>
+
       {/* Phone Number - input & submit */}
       <label>Phone number</label>
       <input
@@ -87,19 +95,16 @@ function Login() {
             name="otp-code"
             value={OTP}
             onChange={verifyOTP}
-            maxLength={6}
+            max={6}
             required
           />
-          <button style={{ visibility: "hidden" }} id="login-btn" type="submit">
-            Login
-          </button>
         </>
       )}
 
+      <div>{errorMessage}</div>
+
       {/* Element for reCAPTCHA widget */}
       <div id="recaptcha-container"></div>
-
-      <div>{errorMessage}</div>
     </form>
   );
 }

@@ -1,0 +1,33 @@
+.blog-full {
+  width: 60%;
+  margin: auto;
+}
+
+.blog-title {
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+
+.blog-author {
+  width: fit-content;
+  background-color: whitesmoke;
+  padding: .2rem;
+  border-radius: 5px;
+}
+
+.blog-author::before {
+  content: "Written by ";
+}
+
+.blog-author-name {
+  font-weight: bold;
+
+  background-color: teal;
+  color: white;
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+
+.blog-post {
+    
+}

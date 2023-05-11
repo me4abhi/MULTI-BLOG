@@ -9,7 +9,7 @@
   border-radius: 10px;
 }
 
-h2 {
+#login-title {
   font-size: 2rem;
   text-transform: uppercase;
   color: teal;

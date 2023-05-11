@@ -9,7 +9,7 @@
   letter-spacing: 0.02rem;
 }
 
-h1 {
+#header-title {
   margin: 0;
   color: white;
   cursor: default;
