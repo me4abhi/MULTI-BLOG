@@ -1,3 +1,6 @@
+import "./ShareButtons.css";
+import TwitterIcon from '@mui/icons-material/Twitter';
+
 function SocialShare({ url, title }) {
   const shareOnTwitter = () => {
     const tweetUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
@@ -6,7 +9,9 @@ function SocialShare({ url, title }) {
     window.open(tweetUrl, "_blank", "noopener noreferrer");
   };
 
-  return <button onClick={shareOnTwitter}>Share on Twitter</button>;
+  return <div id="social-share">Share on
+    <TwitterIcon className="social-share-icon" onClick={shareOnTwitter} />
+  </div>;
 }
 
 export default SocialShare;

@@ -13,6 +13,7 @@
 #header-title {
   margin: 0;
   margin-right: auto;
+  text-decoration: none;
   color: white;
   cursor: default;
 }
@@ -22,7 +23,7 @@ a {
   color: lightcyan;
 }
 
-a:hover {
+header > a:hover {
   color: white;
   text-decoration: overline;
 }

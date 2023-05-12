@@ -1,30 +1,21 @@
 import "./CreatePost.css";
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../services/firebaseConfig";
+import { createBlogPost } from "../../services/blogService";
 
 function CreatePost() {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
 
-  const addData = async (e) => {
+  const submitBlogPost = async (e) => {
     e.preventDefault();
-    try {
-      const docRef = await addDoc(collection(db, "blogPosts"), {
-        postTitle: postTitle,
-        postContent: postContent,
-        author: "Abhinav",
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+    const blogData = { postTitle, postContent };
+    createBlogPost(blogData);
     setPostTitle("");
     setPostContent("");
   };
 
   return (
-    <form id="create-post" onSubmit={addData}>
+    <form id="create-post" onSubmit={createBlogPost}>
       <h1 id="create-new-post">Write a Post</h1>
       <label htmlFor="create-post-title" className="create-post-label">
         Post Title

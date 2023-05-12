@@ -3,3 +3,12 @@
 => Add Login.js/feature: Select Country Code with Input
 
 => "Error: reCAPTCHA element has been removed: 0" when try to login coming back from another page
+
+=> Update 'const URL' in Blog.js
+
+=> Separate code in ShareButtons.js
+
+==>
+    => Add resend otp functionality.
+    => Handle errors on resend otp.
+    => Handle writing full name each time you login. (example: if display name is not present in firestore already, display a modal asking to input 'display name')

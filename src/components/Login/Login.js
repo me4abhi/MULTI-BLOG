@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./Login.css";
 import { auth } from "../../services/firebaseConfig";
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  updateProfile,
-} from "firebase/auth";
+import { generateRecaptcha } from "../../services/recaptchaService";
 import { useNavigate } from "react-router-dom";
+import {
+  loginWithPhone,
+  verifyLoginWithPhone,
+} from "../../services/authService";
+import { updateUserProfile } from "../../services/userProfileService";
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -19,36 +20,29 @@ function Login() {
   const countryCode = "+91";
   const navigate = useNavigate();
 
-  const generateRecaptcha = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // reCAPTCHA solved successfully | allow signInWithPhoneNumber()
-          },
-        },
-        auth
-      );
-    }
-  };
-
   // In this function, call 'signInWithPhoneNumber()' method on the 'auth' object with user's phone number as a parameter
   const requestOTP = (e) => {
     e.preventDefault();
     if (phoneNumber.length === 10) {
       const phoneNumberWithCode = countryCode + phoneNumber;
       setExpandForm(true);
-      generateRecaptcha();
+      const appVerifier = generateRecaptcha(auth);
 
-      let appVerifier = window.recaptchaVerifier;
-      signInWithPhoneNumber(auth, phoneNumberWithCode, appVerifier)
+      loginWithPhone(auth, phoneNumberWithCode, appVerifier)
         .then((response) => {
           window.confirmationResult = response;
+          console.log(
+            "OTP SENT SUCCESSFULLY",
+            window.confirmationResult,
+            response
+          );
         })
         .catch((error) => {
-          setErrorMessage(error.message);
+          console.log(
+            "OTP WAS NOT SENT SUCCESSFULLY. PLEASE TRY AGAIN.",
+            error
+          );
+          setErrorMessage("loginwithphone: " + error);
         });
     }
   };
@@ -58,30 +52,20 @@ function Login() {
     setOTP(otp);
 
     if (otp.length === 6) {
-      window.confirmationResult
-        .confirm(otp)
+      verifyLoginWithPhone(otp)
         .then((credentials) => {
+          const currentUser = auth.currentUser;
           const { displayName } = credentials.user;
-          console.log(displayName, credentials.user);
-          if (displayName === null) {
-            const currentUser = auth.currentUser;
-            updateProfile(currentUser, {
-              displayName: userName,
-            })
-              .then(() => {
-                console.log("Profile Updated");
-                console.log(credentials.user);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+
+          if (!displayName) {
+            updateUserProfile(currentUser, userName);
           }
 
           // redirect to "./blogs" page
           navigate("/blogs");
         })
         .catch((error) => {
-          setErrorMessage(error.message);
+          setErrorMessage("verifyloginwithphone: " + error);
         });
     }
   };

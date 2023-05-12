@@ -1,0 +1,11 @@
+#social-share {
+    text-align: right;
+    font-size: .8rem;
+}
+
+.social-share-icon {
+    color: #1DA1F2;
+    vertical-align: middle;
+    padding-left: .5rem;
+    cursor: pointer;
+}
