@@ -29,6 +29,19 @@ export const fetchBlogPosts = async () => {
   }
 };
 
+export const fetchBlogPost = async (postId) => {
+  try {
+    const docRef = doc(db, "blogPosts", postId);
+    const postSnap = await getDoc(docRef);
+    if (postSnap.exists()) {
+      console.log("postSnap.data()", postSnap.data());
+      return { id: postSnap.id, ...postSnap.data() };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 // export const updateBlog = async (blog) => {
 //   try {
 //     await blogCollection.doc(blog.id).update(blog);

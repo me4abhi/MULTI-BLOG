@@ -27,9 +27,8 @@ function Posts() {
       <Header />
       <div id="posts-grid">
         {posts.map((post) => (
-          <Link to={`${post.postId}`}>
+          <Link to={`/posts/${post.postId}`} key={post.postId}>
             <BlogPostCard
-              key={post.postId}
               postTitle={post.postTitle}
               postAuthor={post.postAuthor}
               postContent={post.postContent}

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/home";
 import Posts from "./pages/posts/posts";
 import Login from "./components/Login/Login";
@@ -11,15 +11,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/posts" element={<Posts />}>
-            <Route path=":postId" element={<BlogPost />} />
-          </Route>
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:postId" element={<BlogPost />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/create-post" element={<EditBlog />} />
         </Routes>
       </BrowserRouter>
-      <Outlet />
     </div>
   );
 }
