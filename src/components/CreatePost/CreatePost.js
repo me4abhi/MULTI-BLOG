@@ -9,14 +9,14 @@ function CreatePost() {
   const submitBlogPost = async (e) => {
     e.preventDefault();
     const blogData = { postTitle, postContent };
-    createBlogPost(blogData);
+    await createBlogPost(blogData);
     setPostTitle("");
     setPostContent("");
   };
 
   return (
-    <form id="create-post" onSubmit={createBlogPost}>
-      <h1 id="create-new-post">Write a Post</h1>
+    <form id="create-post" onSubmit={submitBlogPost}>
+      <h1 id="write-a-post">Write a Post</h1>
       <label htmlFor="create-post-title" className="create-post-label">
         Post Title
       </label>

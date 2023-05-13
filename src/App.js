@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Blogs from "./pages/Blogs/Blogs";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import Home from "./pages/home/home";
+import Posts from "./pages/posts/posts";
 import Login from "./components/Login/Login";
 import EditBlog from "./pages/EditBlog/EditBlog";
-import BlogPostCard from "./components/BlogPostCard/BlogPostCard";
+import BlogPost from "./components/BlogPost/BlogPost";
 
 function App() {
   return (
@@ -11,12 +11,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/posts" element={<Posts />}>
+            <Route path=":postId" element={<BlogPost />} />
+          </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/create-post" element={<EditBlog />} />
-          <Route path="/blog-post-card" element={<BlogPostCard />} />
         </Routes>
       </BrowserRouter>
+      <Outlet />
     </div>
   );
 }

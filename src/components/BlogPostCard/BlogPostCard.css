@@ -1,12 +1,16 @@
 .blog-post-card {
-  width: 50%;
   display: flex;
   flex-direction: column;
+  height: 22vh;
   background-color: whitesmoke;
   border: 2px solid black;
   border-radius: 10px;
   margin: auto;
   padding: 0 1rem;
+}
+
+.blog-post-card-title {
+  font-size: 1.2rem;
 }
 
 .blog-post-card-author {
@@ -25,4 +29,5 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  font-size: .8rem;
 }

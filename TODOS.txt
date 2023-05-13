@@ -12,3 +12,5 @@
     => Add resend otp functionality.
     => Handle errors on resend otp.
     => Handle writing full name each time you login. (example: if display name is not present in firestore already, display a modal asking to input 'display name')
+
+=> Use 'async-await' at all the right places.

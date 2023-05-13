@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { doc, collection, addDoc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
 export const createBlogPost = async ({ postTitle, postContent }) => {
@@ -6,11 +6,26 @@ export const createBlogPost = async ({ postTitle, postContent }) => {
     const docRef = await addDoc(collection(db, "blogPosts"), {
       postTitle: postTitle,
       postContent: postContent,
-      author: "Abhinav",
+      author: "anonymous",
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (error) {
-    console.error("Error adding document: ", error);
+    console.error("Error in createBlogPost: ", error);
+  }
+};
+
+export const fetchBlogPosts = async () => {
+  try {
+    const postsSnapshot = await getDocs(collection(db, "blogPosts"));
+    const allPosts = postsSnapshot.docs.map((doc) => ({
+      postId: doc.id,
+      postTitle: doc.data().postTitle,
+      postAuthor: doc.data().author,
+      postContent: doc.data().postContent,
+    }));
+    return allPosts;
+  } catch (error) {
+    throw error;
   }
 };
 

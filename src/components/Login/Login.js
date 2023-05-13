@@ -62,7 +62,7 @@ function Login() {
           }
 
           // redirect to "./blogs" page
-          navigate("/blogs");
+          navigate("/posts");
         })
         .catch((error) => {
           setErrorMessage("verifyloginwithphone: " + error);

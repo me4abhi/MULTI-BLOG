@@ -18,7 +18,7 @@
   cursor: default;
 }
 
-a {
+header > a, #header-title > a {
   text-decoration: none;
   color: lightcyan;
 }

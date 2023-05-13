@@ -1,8 +1,17 @@
-import "./Blog.css";
+import "./BlogPost.css";
 import ShareButtons from "../ShareButtons/ShareButtons";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchBlogPost } from "../../services/blogService";
 
-function Blog({ postTitle, postAuthor, postContent }) {
+function BlogPost({ postTitle, postAuthor, postContent }) {
   const URL = window.location.pathname;
+  const { postId } = useParams();
+
+  useEffect(() => {
+    fetchBlogPost(postId);
+  }, [postId]);
+
   return (
     <div className="blog-full">
       <h2 className="blog-title">{postTitle}</h2>
@@ -15,4 +24,4 @@ function Blog({ postTitle, postAuthor, postContent }) {
   );
 }
 
-export default Blog;
+export default BlogPost;
