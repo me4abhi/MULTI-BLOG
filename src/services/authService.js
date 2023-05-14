@@ -1,3 +1,4 @@
+import { getAuth, signOut } from "firebase/auth";
 import { signInWithPhoneNumber } from "firebase/auth";
 
 export const loginWithPhone = (auth, phoneNumber, appVerifier) => {
@@ -15,5 +16,14 @@ export const verifyLoginWithPhone = (otp) => {
     return credentials;
   } catch (error) {
     throw error;
+  }
+};
+
+export const logout = () => {
+  const auth = getAuth();
+  try {
+    signOut(auth);
+  } catch (error) {
+    console.log("Unable to logout.");
   }
 };

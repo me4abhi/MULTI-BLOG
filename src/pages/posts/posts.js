@@ -25,17 +25,21 @@ function Posts() {
   return (
     <>
       <Header />
-      <div id="posts-grid">
-        {posts.map((post) => (
-          <Link to={`/posts/${post.postId}`} key={post.postId}>
-            <BlogPostCard
-              postTitle={post.postTitle}
-              postAuthor={post.postAuthor}
-              postContent={post.postContent}
-            />
-          </Link>
-        ))}
-      </div>
+      {posts.length === 0 ? (
+        <div className="center-loading">Loading...</div>
+      ) : (
+        <div id="posts-grid">
+          {posts.map((post) => (
+            <Link to={`/posts/${post.postId}`} key={post.postId}>
+              <BlogPostCard
+                postTitle={post.postTitle}
+                postAuthor={post.postAuthor}
+                postContent={post.postContent}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
       <Footer />
     </>
   );

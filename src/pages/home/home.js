@@ -3,13 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 function Home() {
-  return (
-    <>
-      <Header />
-      <Login />
-      <Footer />
-    </>
-  );
+  return <Login />;
 }
 
 export default Home;

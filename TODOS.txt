@@ -14,3 +14,7 @@
     => Handle writing full name each time you login. (example: if display name is not present in firestore already, display a modal asking to input 'display name')
 
 => Use 'async-await' at all the right places.
+
+=> Use pagination in AllPosts page.
+
+=> Handle recaptcha reset at login/verify component.

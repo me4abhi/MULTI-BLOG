@@ -13,37 +13,31 @@ function Login() {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [OTP, setOTP] = useState("");
-  const [verificationId, setVerificationId] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
   const [expandForm, setExpandForm] = useState(false);
 
   const countryCode = "+91";
   const navigate = useNavigate();
 
   // In this function, call 'signInWithPhoneNumber()' method on the 'auth' object with user's phone number as a parameter
-  const requestOTP = (e) => {
+  const requestOTP = async (e) => {
     e.preventDefault();
     if (phoneNumber.length === 10) {
       const phoneNumberWithCode = countryCode + phoneNumber;
-      setExpandForm(true);
-      const appVerifier = generateRecaptcha(auth);
+      window.appVerifier = generateRecaptcha(auth);
 
-      loginWithPhone(auth, phoneNumberWithCode, appVerifier)
+      await loginWithPhone(auth, phoneNumberWithCode, window.appVerifier)
         .then((response) => {
           window.confirmationResult = response;
-          console.log(
-            "OTP SENT SUCCESSFULLY",
-            window.confirmationResult,
-            response
-          );
+          setExpandForm(true);
+          setResponseMessage("OTP sent successfully.");
         })
         .catch((error) => {
-          console.log(
-            "OTP WAS NOT SENT SUCCESSFULLY. PLEASE TRY AGAIN.",
-            error
-          );
-          setErrorMessage("loginwithphone: " + error);
+          setResponseMessage(error.toString());
+          // resetRecaptcha();
         });
+    } else {
+      setResponseMessage("Phone number should be exactly 10 digits.");
     }
   };
 
@@ -61,11 +55,14 @@ function Login() {
             updateUserProfile(currentUser, userName);
           }
 
+          // store login-status to local-storage
+          localStorage.setItem("isLoggedIn", "true");
+
           // redirect to "./blogs" page
           navigate("/posts");
         })
         .catch((error) => {
-          setErrorMessage("verifyloginwithphone: " + error);
+          setResponseMessage(error.toString());
         });
     }
   };
@@ -74,17 +71,18 @@ function Login() {
     <form id="login-form" onSubmit={requestOTP}>
       <h2 id="login-title">Login</h2>
 
-      {/* Phone Number - input & submit */}
-      <label>Display Name</label>
+      {/* Display Name - input & submit */}
+      <label>Name (optional)</label>
       <input
         type="text"
         id="display-name"
         name="display-name"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
-        required
         minLength={3}
       />
+
+      {/* Phone Number - input, verify & submit */}
       <label>Phone number</label>
       <input
         type="tel"
@@ -96,25 +94,27 @@ function Login() {
         required
       />
       {!expandForm ? (
-        <button id="get-otp-btn" type="submit">
-          Get OTP
-        </button>
+        <>
+          <button id="get-otp-btn" type="submit">
+            Get OTP
+          </button>
+        </>
       ) : (
         <>
           <label>One Time Password</label>
           <input
-            type="number"
+            type="tel"
             id="otp-code"
             name="otp-code"
             value={OTP}
             onChange={verifyOTP}
-            max={6}
+            maxLength={6}
             required
           />
         </>
       )}
 
-      <div>{errorMessage}</div>
+      <div className="response-message">{responseMessage}</div>
 
       {/* Element for reCAPTCHA widget */}
       <div id="recaptcha-container"></div>

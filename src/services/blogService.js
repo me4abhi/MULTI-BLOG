@@ -10,7 +10,7 @@ export const createBlogPost = async ({ postTitle, postContent }) => {
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (error) {
-    console.error("Error in createBlogPost: ", error);
+    throw error;
   }
 };
 

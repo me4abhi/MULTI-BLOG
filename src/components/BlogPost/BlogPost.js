@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 function BlogPost() {
-  const URL = window.location.pathname;
+  const URL = "localhost:3000" + window.location.pathname;
   const { postId } = useParams();
   const [blogPost, setBlogPost] = useState(null);
 
@@ -25,21 +25,21 @@ function BlogPost() {
     fetchPost();
   }, [postId]);
 
-  if (!blogPost) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       <Header />
-      <div className="blog-full">
-        <h2 className="blog-title">{blogPost.postTitle}</h2>
-        <div className="blog-author">
-          <span className="blog-author-name">{blogPost.author}</span>
+      {!blogPost ? (
+        <div className="center-loading">Loading...</div>
+      ) : (
+        <div className="blog-full">
+          <h2 className="blog-title">{blogPost.postTitle}</h2>
+          <div className="blog-author">
+            <span className="blog-author-name">{blogPost.author}</span>
+          </div>
+          <p className="blog-post">{blogPost.postContent}</p>
+          <ShareButtons url={URL} title={blogPost.postTitle} />
         </div>
-        <p className="blog-post">{blogPost.postContent}</p>
-        <ShareButtons url={URL} title={blogPost.postTitle} />
-      </div>
+      )}
       <Footer />
     </>
   );
