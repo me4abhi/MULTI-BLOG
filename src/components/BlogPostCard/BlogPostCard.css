@@ -1,7 +1,8 @@
 .blog-post-card {
+  font-size: 1.4rem;
   display: flex;
   flex-direction: column;
-  height: 22vh;
+  height: 25vh;
   background-color: whitesmoke;
   border: 2px solid black;
   border-radius: 10px;
@@ -10,7 +11,8 @@
 }
 
 .blog-post-card-title {
-  font-size: 1.2rem;
+  font-size: 1.2em;
+  height: 2.6rem;
 }
 
 .blog-post-card-author {
@@ -18,9 +20,9 @@
   color: white;
   width: fit-content;
   margin: 0;
-  padding: .2rem;
+  padding: 0.2rem;
   border-radius: 5px;
-  font-size: .8rem;
+  font-size: 0.8em;
 }
 
 .blog-post-card-content {
@@ -29,5 +31,5 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  font-size: .8rem;
+  font-size: 1em;
 }

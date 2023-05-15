@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 function BlogPost() {
-  const URL = "localhost:3000" + window.location.pathname;
+  const URL = "https://multi-blog-52f92.web.app" + window.location.pathname;
   const { postId } = useParams();
   const [blogPost, setBlogPost] = useState(null);
 

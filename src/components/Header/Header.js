@@ -9,6 +9,7 @@ function Header() {
     logout();
     <Navigate to="/" />;
     localStorage.removeItem("isLoggedIn");
+    window.location.reload();
   };
 
   return (
