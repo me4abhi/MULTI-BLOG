@@ -1,7 +1,7 @@
 #header {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 1rem;
   align-items: center;
   padding: 1rem 5rem;
@@ -18,14 +18,15 @@
   cursor: default;
 }
 
-header > a,
-#header-title > a {
-  text-decoration: none;
-  color: lightcyan;
-}
-
 #header-title > a {
   cursor: default;
+  text-decoration: none;
+  color: white;
+}
+
+header > a {
+  text-decoration: none;
+  color: lightcyan;
 }
 
 header > a:hover {
@@ -33,7 +34,20 @@ header > a:hover {
   text-decoration: overline;
 }
 
-header > a:active {
+header > a:last-child {
+  background-color: beige;
+  color: black;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+header > a:last-child:hover {
+  background-color: papayawhip;
+  color: black;
+  text-decoration: none;
+}
+
+/* header > a:active {
   color: black;
   text-decoration: overline;
-}
+} */
