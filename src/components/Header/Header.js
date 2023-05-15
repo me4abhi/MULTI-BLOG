@@ -1,14 +1,13 @@
 import { logout } from "../../services/authService";
 import "./Header.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 
 function Header() {
-  const navigate = useNavigate();
   let isAuthenticated = localStorage.getItem("isLoggedIn");
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    <Navigate to="/" />;
     localStorage.removeItem("isLoggedIn");
   };
 
