@@ -3,7 +3,7 @@
  ### `Technologies`
 `React` `JavaScript` `JSX` `react-router-dom` `Firebase Firestore` `Cascading Stylesheets`
 
-### `Components/Pages`
+### `Pages`
 
 - `Login Page`
   > The login page now offers the option to login using phone numbers and allows users to add a display name during the process for a more personalized experience and added security.\
