@@ -1,7 +1,7 @@
 #header {
   display: flex;
   flex-direction: row;
-  justify-content:end;
+  justify-content: end;
   gap: 1rem;
   align-items: center;
   padding: 1rem 5rem;
@@ -18,12 +18,22 @@
   cursor: default;
 }
 
-header > a, #header-title > a {
+header > a,
+#header-title > a {
   text-decoration: none;
   color: lightcyan;
 }
 
+#header-title > a {
+  cursor: default;
+}
+
 header > a:hover {
   color: white;
+  text-decoration: overline;
+}
+
+header > a:active {
+  color: black;
   text-decoration: overline;
 }

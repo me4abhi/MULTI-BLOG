@@ -8,6 +8,8 @@ import {
   verifyLoginWithPhone,
 } from "../../services/authService";
 import { updateUserProfile } from "../../services/userProfileService";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -55,11 +57,9 @@ function Login() {
             updateUserProfile(currentUser, userName);
           }
 
-          // store login-status to local-storage
-          localStorage.setItem("isLoggedIn", "true");
-
           // redirect to "./blogs" page
           navigate("/posts");
+          localStorage.setItem("isLoggedIn", "true");
         })
         .catch((error) => {
           setResponseMessage(error.toString());
@@ -68,57 +68,61 @@ function Login() {
   };
 
   return (
-    <form id="login-form" onSubmit={requestOTP}>
-      <h2 id="login-title">Login</h2>
+    <>
+      <Header />
+      <form id="login-form" onSubmit={requestOTP}>
+        <h2 id="login-title">Login</h2>
 
-      {/* Display Name - input & submit */}
-      <label>Name (optional)</label>
-      <input
-        type="text"
-        id="display-name"
-        name="display-name"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-        minLength={3}
-      />
+        {/* Display Name - input & submit */}
+        <label>Name (optional)</label>
+        <input
+          type="text"
+          id="display-name"
+          name="display-name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          minLength={3}
+        />
 
-      {/* Phone Number - input, verify & submit */}
-      <label>Phone number</label>
-      <input
-        type="tel"
-        id="phone-number"
-        name="phone-number"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-        maxLength={10}
-        required
-      />
-      {!expandForm ? (
-        <>
-          <button id="get-otp-btn" type="submit">
-            Get OTP
-          </button>
-        </>
-      ) : (
-        <>
-          <label>One Time Password</label>
-          <input
-            type="tel"
-            id="otp-code"
-            name="otp-code"
-            value={OTP}
-            onChange={verifyOTP}
-            maxLength={6}
-            required
-          />
-        </>
-      )}
+        {/* Phone Number - input, verify & submit */}
+        <label>Phone number</label>
+        <input
+          type="tel"
+          id="phone-number"
+          name="phone-number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          maxLength={10}
+          required
+        />
+        {!expandForm ? (
+          <>
+            <button id="get-otp-btn" type="submit">
+              Get OTP
+            </button>
+          </>
+        ) : (
+          <>
+            <label>6 Digit OTP</label>
+            <input
+              type="tel"
+              id="otp-code"
+              name="otp-code"
+              value={OTP}
+              onChange={verifyOTP}
+              maxLength={6}
+              required
+            />
+          </>
+        )}
 
-      <div className="response-message">{responseMessage}</div>
+        <div className="response-message">{responseMessage}</div>
 
-      {/* Element for reCAPTCHA widget */}
-      <div id="recaptcha-container"></div>
-    </form>
+        {/* Element for reCAPTCHA widget */}
+        <div id="recaptcha-container"></div>
+      </form>
+      <Footer />
+    </>
   );
 }
 
