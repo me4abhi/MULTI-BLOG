@@ -1,6 +1,6 @@
 # [MULTI BLOG](https://multi-blog-52f92.web.app/)
 
- ## `Front-end`
+ ### `Technologies`
 `React` `JavaScript` `JSX` `react-router-dom` `Firebase Firestore` `Cascading Stylesheets`
 
 ### `Components/Pages`
