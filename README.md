@@ -6,8 +6,8 @@
 ### `Components/Pages`
 
 - `Login Page`
-  > The login page now offers the option to login using phone numbers and allows users to add a display name during the process for a more personalized experience and added security.
-**Dummy Accounts:**
+  > The login page now offers the option to login using phone numbers and allows users to add a display name during the process for a more personalized experience and added security.\
+**Dummy Accounts:**\
 `Phone: 1234567890, OTP: 123456`
 `Phone: 1111111111, OTP: 111111`
 `Phone: 2222222222, OTP: 222222`
